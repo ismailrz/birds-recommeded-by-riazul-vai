@@ -1,0 +1,4 @@
+**Database Name: tweetphp**
+
+**Recommended PHP Version 5.6, 7**
+** Login Details - test@mail.com ( Pass - Test123 )
