@@ -25,7 +25,15 @@ include('../core/classes/DashbordUser.php');
 
 $query = "SELECT * FROM `tweets`";
 $function = new DashbordUser();
+
 $results = $function->allUser($query);
+$comments = [];
+foreach($results as $result){
+    $query = "SELECT * FROM `comments` where post_id = $result->post_id";
+    $function = new DashbordUser();
+    $cmts = $function->allUser($query);
+    $comments[$result->post_id] = $cmts;
+}
 
 if (isset($_POST['delete_tweet'])) {
     $id = $_POST['id'];
@@ -62,6 +70,7 @@ if (isset($_POST['delete_tweet'])) {
                                                 <th>SL</th>
                                                 <th>User Name</th>
                                                 <th>Birds</th>
+                                                <th>Comments</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -73,6 +82,12 @@ if (isset($_POST['delete_tweet'])) {
                                                 <td><?php echo $sl++  ?> </td>
                                                 <td>User Name</td>
                                                 <td><?php echo ucfirst($result->status)  ?> </td>
+                                                <td><?php foreach ($comments[$result->post_id] as $comment) { ?>
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item"><?php echo $comment->comment?></li>
+                                                    </ul>
+                                                    <?php } ?>
+                                                </td>
                                                 <td>
                                                     <form method="POST">
                                                         <input class="d-none" type="number" name="id"

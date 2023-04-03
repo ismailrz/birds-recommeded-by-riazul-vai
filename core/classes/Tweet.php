@@ -390,7 +390,25 @@ class Tweet extends User {
         }
 
        
-        
+        public static function deleteTweet($id){
+            // var_dump($id); die();
+            $stmt = self::connect()->prepare("DELETE FROM `posts` WHERE id = $id");
+            $stmt->execute(); 
+            $stmt = self::connect()->prepare("DELETE FROM `tweets` WHERE post_id = $id");
+            $stmt->execute();
+             $stmt = self::connect()->prepare("DELETE FROM `retweets` WHERE tweet_id = $id");
+            $stmt->execute();
+            $stmt = self::connect()->prepare("DELETE FROM `retweets` WHERE  tweet_id = $id");
+            $stmt->execute();
+
+        //    return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }        
+        public static function updateTweet($tweetId, $editTweet){
+            $stmt = self::connect()->prepare("UPDATE tweets SET `status`= :ststus WHERE post_id = $tweetId");
+            $stmt->bindParam(":ststus" , $editTweet , PDO::PARAM_STR);
+            $stmt->execute(); 
+        //    return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
         
         public static function likedTweetRealId($tweet_id) {
             $stmt = self::connect()->prepare("SELECT tweet_id FROM retweets 
