@@ -41,6 +41,14 @@ class DashbordUser extends Connect
         $stmt = self::connect()->prepare($query);
         $stmt->execute();
     }
+ public static function getTweetUser($query)
+    {
+        $stmt = self::connect()->prepare($query);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        $results = $stmt->fetch();
+        return $results;
+    }
 
 
     public static function delete($query)

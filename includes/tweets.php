@@ -261,6 +261,9 @@ foreach($tweets as $tweet) {
     
                                 <textarea class="form-control" name="editTweet" id="editTweetTextarea-<?php echo $tweet->id?>" rows="3"></textarea>
                            
+                                <button class="btn btn-sm btn-secondary float-right mt-2" onclick="hideEditForm(<?php echo $tweet->id?>)" name="cancel"  type="button">
+                                 Cancel
+                                </button>
                                 <button class="btn btn-sm btn-primary float-right mt-2"  name="updatTweet"  type="submit">
                                  Update
                                 </button>
@@ -351,7 +354,12 @@ foreach($tweets as $tweet) {
         
               
                   <div class="dropdown" >
-                    <i class="fas fa-ellipsis-h mt-icon-reaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                    <?php $permission =  Tweet::userPermission($tweet->id, $user_id );
+                        
+                      if($permission){
+                        echo '<i class="fas fa-ellipsis-h mt-icon-reaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>';
+                      }
+                    ?>
                   
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <button class="dropdown-item" onclick="editTweet( <?php echo $tweet->id ?>)" type="button"><i class="fas fa-pencil-alt icon" aria-hidden="true"></i> Edit</button>
@@ -411,5 +419,9 @@ function editTweet(tweetId){
     const textarea = document.getElementById('editTweetTextarea-'+tweetId);
     textarea.innerText = data;
 
+}
+function hideEditForm(tweetId){
+    const el = document.getElementById('edit-tweet-'+tweetId);
+    el.classList.add('d-none');
 }
 </script>

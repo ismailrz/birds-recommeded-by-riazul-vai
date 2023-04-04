@@ -40,10 +40,11 @@ if (isset($_POST['delete_tweet'])) {
 
     $delete_query = "DELETE FROM tweets where post_id='$id'";
     $function->delete($delete_query);
+    $delete_query = "DELETE FROM posts where id='$id'";
+    $function->delete($delete_query);
 
     header('location:tweetindex.php');
 }
-
 ?>
 
 <body class="sb-nav-fixed">
@@ -80,7 +81,15 @@ if (isset($_POST['delete_tweet'])) {
                                             <?php foreach ($results as $result) { ?>
                                             <tr>
                                                 <td><?php echo $sl++  ?> </td>
-                                                <td>User Name</td>
+                                                <td>
+                                                    <?php 
+                                                     $query = "SELECT users.name as user  FROM `users` join `posts`  on users.id =  posts.user_id WHERE  posts.id = $result->post_id";
+                                                     $function = new DashbordUser();
+                                                     $user = $function->allUser($query);
+                                                    echo $user[0]->user;
+                                                      
+                                                
+                                                ?></td>
                                                 <td><?php echo ucfirst($result->status)  ?> </td>
                                                 <td><?php foreach ($comments[$result->post_id] as $comment) { ?>
                                                     <ul class="list-group">

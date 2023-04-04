@@ -410,6 +410,15 @@ class Tweet extends User {
         //    return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
         
+        public static function userPermission($tweetId, $userId){
+            $stmt = self::connect()->prepare("SELECT * FROM `posts` WHERE `id`= :id  && user_id = $userId");
+            $stmt->bindParam(":id" , $tweetId , PDO::PARAM_STR);
+            $stmt->execute(); 
+            if ($stmt->rowCount() > 0) {
+                return true;
+            } else return false;
+            
+        }
         public static function likedTweetRealId($tweet_id) {
             $stmt = self::connect()->prepare("SELECT tweet_id FROM retweets 
             WHERE post_id = :tweet_id");
