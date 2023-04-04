@@ -1,5 +1,5 @@
 <?php
-
+ ob_start();
    include 'core/init.php';
   
    $user_id = $_SESSION['user_id'];

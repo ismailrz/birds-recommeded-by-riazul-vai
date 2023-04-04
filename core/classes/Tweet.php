@@ -400,7 +400,6 @@ class Tweet extends User {
             $stmt->execute();
             $stmt = self::connect()->prepare("DELETE FROM `retweets` WHERE  tweet_id = $id");
             $stmt->execute();
-
         //    return $stmt->fetchAll(PDO::FETCH_OBJ);
         }        
         public static function updateTweet($tweetId, $editTweet){

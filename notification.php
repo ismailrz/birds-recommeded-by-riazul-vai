@@ -283,7 +283,7 @@
                       <?= $user_follow ? 'following' : 'follow' ?>"
                       data-follow="<?php echo $user->id; ?>"
                       data-user="<?php echo $user_id; ?>"
-                      data-profile="<?php echo $profileData->id; ?>"
+                      data-profile="<?php echo $user_id; ?>"
                       style="font-weight: 700;">
                       <?php if($user_follow) { ?>
                         Following 

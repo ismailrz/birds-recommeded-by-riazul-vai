@@ -1,12 +1,14 @@
 <?php
+  
 $user_id = $_SESSION['user_id'];
 // global $tweets;
 
 if (isset($_POST['deleteTweet'])) {
     $id = $_POST['id'];
-
+ 
     Tweet::deleteTweet($id);
-    // header('location:home.php');
+    header('location:home.php');
+    exit;
 }
 
 if (isset($_POST['updatTweet'])) {
@@ -365,7 +367,7 @@ foreach($tweets as $tweet) {
                       <button class="dropdown-item" onclick="editTweet( <?php echo $tweet->id ?>)" type="button"><i class="fas fa-pencil-alt icon" aria-hidden="true"></i> Edit</button>
                       
                 
-                    </form>  <form method="POST">
+                  <form method="POST">
                                 <input class="d-none" type="number" name="id"
                                     value="<?php echo $tweet->id ?>">
                                 
